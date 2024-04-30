@@ -6,7 +6,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsup"
   },
   "keywords": [
     "node",
@@ -22,5 +22,14 @@
     "execute"
   ],
   "author": "julianofirme",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "inquirer": "^9.2.20",
+    "read-pkg": "^9.0.1"
+  }
 }
