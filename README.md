@@ -7,7 +7,7 @@
 You can install `nscli` globally via npm to access it from anywhere in your terminal:
 
 ```bash
-npm install -g nscli
+npm install -g @jf/nscli
 ```
 
 ## Usage
