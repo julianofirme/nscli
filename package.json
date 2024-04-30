@@ -1,12 +1,19 @@
 {
-  "name": "nscli",
+  "name": "npm-script-cli",
   "version": "1.0.0",
   "description": "`nscli` is a Node.js CLI tool that allows you to easily run scripts defined in your package.json file. It provides a simple interface for selecting and executing scripts from the terminal.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.js",
+  "bin": {
+    "nscli": "./dist/index.mjs"
+  },
+  "repository": {
+    "url": "https://github.com/jfirme-sys/nscli"
+  },
   "scripts": {
-    "build": "tsup"
+    "build": "tsup",
+    "start": "node ./dist/index.mjs"
   },
   "keywords": [
     "node",

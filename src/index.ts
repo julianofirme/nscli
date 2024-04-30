@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { readPackageSync } from 'read-pkg';
 import fs from 'fs';
 import inquirer from 'inquirer';
