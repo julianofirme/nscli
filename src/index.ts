@@ -1,4 +1,5 @@
 import { readPackageSync } from 'read-pkg';
+import fs from 'fs';
 import inquirer from 'inquirer';
 import { execSync } from 'child_process';
 
@@ -16,16 +17,28 @@ function readPackageScripts() {
       process.exit(1);
     };
 
-    return Object.keys(packageJson.scripts);
+    return { scripts: Object.keys(packageJson.scripts), packageManager: detectPackageManager() };
   } catch (error) {
     console.error("Error occurred while reading package.json:", error);
     process.exit(1);
   }
 }
 
-function handleScriptExecution(scriptName: string) {
+function detectPackageManager() {
+  if (fs.existsSync('yarn.lock')) {
+    return 'yarn';
+  } else if (fs.existsSync('pnpm-lock.yaml')) {
+    return 'pnpm';
+  } else if (fs.existsSync('rush.json')) {
+    return 'rush';
+  } else {
+    return 'npm';
+  }
+}
+
+function handleScriptExecution(scriptName: string, packageManager: string) {
   console.log(`Running script: ${scriptName}`);
-  const command = `npm run ${scriptName}`;
+  const command = `${packageManager} run ${scriptName}`;
   try {
     execSync(command, { stdio: 'inherit' });
   } catch (error) {
@@ -39,7 +52,7 @@ function handleExit() {
 }
 
 function main() {
-  const scripts = readPackageScripts();
+  const { scripts, packageManager } = readPackageScripts();
 
   if (scripts.length === 0) {
     console.log("No scripts found in package.json. Exiting...");
@@ -63,7 +76,7 @@ function main() {
     ])
     .then((answers) => {
       const scriptName = answers.script;
-      handleScriptExecution(scriptName);
+      handleScriptExecution(scriptName, packageManager);
     })
     .catch((error) => {
       console.error('Error occurred:', error);
