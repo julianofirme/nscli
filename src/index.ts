@@ -67,6 +67,11 @@ function main() {
     }
   });
 
+  process.on('SIGINT', () => {
+    console.log('\n\nScript interrupted by user. Exiting...');
+    process.exit(0);
+  });
+
   inquirer
     .prompt([
       {
