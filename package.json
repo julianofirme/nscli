@@ -1,6 +1,6 @@
 {
   "name": "nodescript-cli",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "`nscli` is a Node.js CLI tool that allows you to easily run scripts defined in your package.json file. It provides a simple interface for selecting and executing scripts from the terminal.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

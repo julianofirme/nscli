@@ -3,7 +3,7 @@
 import { readPackageSync } from 'read-pkg';
 import fs from 'fs';
 import inquirer from 'inquirer';
-import { execSync } from 'child_process';
+import { spawnSync } from 'child_process';
 
 function readPackageScripts() {
   try {
@@ -38,18 +38,22 @@ function detectPackageManager() {
   }
 }
 
-function handleScriptExecution(scriptName: string, packageManager: string) {
+function handleScriptExecution(scriptName: string, packageManager: string): void {
   console.log(`Running script: ${scriptName}`);
   const command = `${packageManager} run ${scriptName}`;
-  try {
-    execSync(command, { stdio: 'inherit' });
-  } catch (error) {
-    console.error(`Error occurred while running script ${scriptName}:`, error);
+
+  const child = spawnSync(command, { stdio: 'inherit', shell: true });
+
+  if (child.status === null || child.status !== 0) {
+    console.error(`Script ${scriptName} interrupted`);
+    process.exit(0);
   }
+  
+  spawnSync('killall', ['node'], { stdio: 'ignore', shell: true });
 }
 
 function handleExit() {
-  console.log("\n\nEsc key pressed. Exiting...");
+  console.log("\nEsc key pressed. Exiting...");
   process.exit(0);
 }
 
@@ -65,11 +69,6 @@ function main() {
     if (key && key.name === "escape") {
       handleExit();
     }
-  });
-
-  process.on('SIGINT', () => {
-    console.log('\n\nScript interrupted by user. Exiting...');
-    process.exit(0);
   });
 
   inquirer
