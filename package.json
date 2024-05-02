@@ -35,6 +35,9 @@
     "tsup": "^8.0.2",
     "typescript": "^5.4.5"
   },
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "dependencies": {
     "inquirer": "^9.2.20",
     "read-pkg": "^9.0.1"
