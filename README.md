@@ -45,7 +45,7 @@ Navigate the list using the arrow keys, then press Enter to run the selected scr
 
 ## Node.js Support
 
-This package is compatible with Node versions higher than 16.x 
+This package is compatible with Node versions higher than 15.x 
 
 If you are experiencing compatibility issues with a specific version of Node.js, please open an issue so we can investigate and address the problem.
 
